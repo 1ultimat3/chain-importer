@@ -31,7 +31,7 @@ Now we are able to generate a genesis spec, which contains the exported state. H
 python chainspec_generator.py -s ./state_export.bin -t ./config/chain.spec.template -o ./config/chain.spec
  ```
 
-We are now able to start the testnet:
+We are now able to start the local testchain:
  ```
 parity --chain ./config/chain.spec --reseal-min-period 0 --no-discovery --no-download --jsonrpc-apis all --min-gas-price 0
  ```
