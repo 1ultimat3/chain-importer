@@ -2,7 +2,7 @@
 
 Importing state data from a different chain looks difficult in the first place. Fortunately, Parity's fat-db functionality allows us to easily iterate over account and contract state. Therefore, we can gather all relevant parts of a parition or the whole source chain and construct a new target chain, with the benefit to be under our control.
 
-Modifications can be performed for various purposes, such as fuzzing of mainnet or testnet contracts. This is our fuzzing preperation step when using [Galactuzz](https://github.com/Ethermat/galactuzz).
+Modifications can be performed for various purposes, such as fuzzing of mainnet or testnet contracts. This is our fuzzing preparation step when using [Galactuzz](https://github.com/Ethermat/galactuzz).
 
 
 Summarized approach for importing a chain state:
