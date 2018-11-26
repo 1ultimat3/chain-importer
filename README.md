@@ -25,13 +25,13 @@ parity --fat-db=on --min-peers=50 --max-peers=100 --cache-size=4096
 parity export state ./state_export.bin
   ```
 
-Now we are able to generate a genesis spec, which contains the exported state. However, we are able to modify various parts beforehand (e.g. account balances). Make sure to configure *config/chain.spec*. Finally, generate the genesis spec as follows:
+Now we are able to generate a genesis spec, which contains the exported state. However, we are able to modify various parts beforehand (e.g. account balances). Make sure to configure *config/chain.spec.template*. Finally, generate the genesis spec as follows:
 
  ```
-python chainspec_generator.py -s ./state_export.bin -t ./config/chain.spec -o ./config/chain.json
+python chainspec_generator.py -s ./state_export.bin -t ./config/chain.spec.template -o ./config/chain.spec
  ```
 
 We are now able to start the testnet:
  ```
-parity --chain ./config/chain.json --reseal-min-period 0 --no-discovery --no-download --jsonrpc-apis all --min-gas-price 0
+parity --chain ./config/chain.spec --reseal-min-period 0 --no-discovery --no-download --jsonrpc-apis all --min-gas-price 0
  ```
