@@ -40,6 +40,8 @@ class ChainSpecGenerator:
                             if prefix == 'accounts':
                                 for _exported_state in json_states(state_fd):
                                     _address = _exported_state['address']
+                                    _exported_state["balance"] = str(int(_exported_state["balance"], 16))
+                                    _exported_state["nonce"] = str(int(_exported_state["nonce"], 16))
                                     del _exported_state['address']
                                     _json_acc = "\"{0}\": {1}".format(
                                         _address,
