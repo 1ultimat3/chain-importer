@@ -1,0 +1,4 @@
+ijson
+cffi
+six
+yajl-py

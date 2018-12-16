@@ -11,6 +11,25 @@ Summarized approach for importing a chain state:
     2. Generate new genesis spec based on template
     3. Run chain based on generated (and possibly modified) genesis spec
 
+## Installation
+YAJL is required to parse large files, otherwise the standard python json lib is used. 
+
+On MacOS:
+```
+brew install yajl
+```
+
+On Debian-based systems:
+```
+apt-get install libyajl-dev
+```
+
+The next steps involves the python requirements need to be installed:
+```
+pip install -r requirements.txt
+```
+
+
 ## Usage
 
 As prerequisite a synced (mainnet-) chain is required. Furthermore, the chain is expected to be synced with Parity's fat-db functionality:
