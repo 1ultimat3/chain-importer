@@ -13,10 +13,11 @@ class ChainSpecGenerator:
         self.target_spec = target_spec_path
         self.state_export = state_export
 
-    def generate_spec(self, output_path):
+    def generate_spec(self, output_path, whitelist=[]):
         """
         Enriches state from existing chain with target chain spec
         :param output_path:
+        :param whitelist:
         :return:
         """
         with open(self.state_export) as state_fd:
@@ -43,15 +44,17 @@ class ChainSpecGenerator:
                                     _exported_state["balance"] = str(int(_exported_state["balance"], 16))
                                     _exported_state["nonce"] = str(int(_exported_state["nonce"], 16))
                                     del _exported_state['address']
-                                    _json_acc = "\"{0}\": {1}".format(
-                                        _address,
-                                        json.dumps(_exported_state)
-                                    )
-                                    if depth_map[depth_val] == 0:
-                                        out.write(_json_acc)
-                                    else:
-                                        out.write(",")
-                                        out.write(_json_acc)
+                                    # include whitelisted addresses only or if whitelist not defined
+                                    if not whitelist or _address in whitelist:
+                                        _json_acc = "\"{0}\": {1}".format(
+                                            _address,
+                                            json.dumps(_exported_state)
+                                        )
+                                        if depth_map[depth_val] == 0:
+                                            out.write(_json_acc)
+                                        else:
+                                            out.write(",")
+                                            out.write(_json_acc)
                                     depth_map[depth_val] = 1
 
                         elif event == 'map_key':
