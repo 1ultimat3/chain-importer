@@ -39,13 +39,21 @@ class ChainSpecGenerator:
                             out.write('{')
 
                             if prefix == 'accounts':
+                                whitelist_size = len(whitelist)
+                                whitelist_hit = 0
                                 for _exported_state in json_states(state_fd):
                                     _address = _exported_state['address']
                                     _exported_state["balance"] = str(int(_exported_state["balance"], 16))
                                     _exported_state["nonce"] = str(int(_exported_state["nonce"], 16))
                                     del _exported_state['address']
+
+                                    # determine if all whitelisted addresses have been processed
+                                    if whitelist and whitelist_hit == whitelist_size:
+                                        break
+
                                     # include whitelisted addresses only or if whitelist not defined
                                     if not whitelist or _address in whitelist:
+                                        whitelist_hit += 1
                                         _json_acc = "\"{0}\": {1}".format(
                                             _address,
                                             json.dumps(_exported_state)
