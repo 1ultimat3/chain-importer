@@ -1,5 +1,5 @@
 import json
-import ijson
+import ijson.backends.yajl2 as ijson
 
 from importer.streamer import json_states
 
@@ -21,7 +21,7 @@ class ChainSpecGenerator:
         :return:
         """
         with open(self.state_export) as state_fd:
-            with open(self.target_spec) as template_fd:
+            with open(self.target_spec, 'rb') as template_fd:
                 parser = ijson.parse(template_fd)
                 depth_map = {}
                 depth_val = -1
@@ -42,6 +42,7 @@ class ChainSpecGenerator:
                                 whitelist_size = len(whitelist)
                                 whitelist_hit = 0
                                 for _exported_state in json_states(state_fd):
+
                                     _address = _exported_state['address']
                                     _exported_state["balance"] = str(int(_exported_state["balance"], 16))
                                     _exported_state["nonce"] = str(int(_exported_state["nonce"], 16))
@@ -58,11 +59,8 @@ class ChainSpecGenerator:
                                             _address,
                                             json.dumps(_exported_state)
                                         )
-                                        if depth_map[depth_val] == 0:
-                                            out.write(_json_acc)
-                                        else:
-                                            out.write(",")
-                                            out.write(_json_acc)
+                                        out.write(_json_acc)
+                                        out.write(",")
                                     depth_map[depth_val] = 1
 
                         elif event == 'map_key':
