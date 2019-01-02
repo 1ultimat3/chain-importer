@@ -1,4 +1,4 @@
-import ijson
+import ijson.backends.yajl2 as ijson
 
 
 def json_states(fd):

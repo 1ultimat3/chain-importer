@@ -20,7 +20,7 @@ class ChainSpecGenerator:
         :param whitelist:
         :return:
         """
-        with open(self.state_export) as state_fd:
+        with open(self.state_export, 'rb') as state_fd:
             with open(self.target_spec, 'rb') as template_fd:
                 parser = ijson.parse(template_fd)
                 depth_map = {}
